@@ -1,4 +1,7 @@
 .primaryContainer {
-    margin-top: 1%;
-  }
-  
+  margin-top: 1%;
+}
+
+.formContainer {
+  display: inline;
+}
