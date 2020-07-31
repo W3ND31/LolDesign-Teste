@@ -1,9 +1,11 @@
-import {AppBar, Container} from '@material-ui/core';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import React, {Fragment} from 'react';
+import { AppBar, Container } from "@material-ui/core";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import React, { Fragment } from "react";
+import { useStyles } from "../style/defaultTheme";
 
 const AppHeader = (props: any) => {
+  const classes = useStyles();
   return (
     <Fragment>
       <AppBar>
@@ -12,7 +14,7 @@ const AppHeader = (props: any) => {
         </Toolbar>
       </AppBar>
       <Toolbar />
-      <Container className="primaryContainer">{props.children}</Container>
+      <Container className={classes.container}>{props.children}</Container>
     </Fragment>
   );
 };

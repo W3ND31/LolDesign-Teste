@@ -1,7 +1,7 @@
 interface Valores {
-  origem: Number;
-  destino: Number;
-  valor: Number;
+  origem: number;
+  destino: number;
+  valor: number;
 }
 
 export default Valores;
