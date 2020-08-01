@@ -9,6 +9,7 @@ interface IProps {
   value: number | string;
   listData: ListData[];
   handleChange: any;
+  dataTestId: string;
 }
 
 interface ListData {
@@ -17,7 +18,7 @@ interface ListData {
 }
 
 const ComboBox = (props: IProps) => {
-  const { id, name, label, value, listData, handleChange } = props;
+  const { id, name, label, value, listData, handleChange, dataTestId } = props;
   const classes = useStyles();
 
   return (
@@ -29,6 +30,9 @@ const ComboBox = (props: IProps) => {
         value={value}
         onChange={(e) => handleChange(e)}
         autoWidth
+        inputProps={{
+          "data-testid": dataTestId,
+        }}
       >
         <MenuItem value={0}>Selecione</MenuItem>
         {listData.map((item: any, index: number) => {

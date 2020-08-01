@@ -18,8 +18,8 @@ const INITIAL_STATE: DadosForm = {
 
 const FaleMaisForm = (props: IProps) => {
   const [formData, setFormData] = useState<DadosForm>(INITIAL_STATE);
-  const classes = useStyles();
   const { handleSubmit } = props;
+  const classes = useStyles();
 
   useEffect(() => {
     if (
@@ -34,7 +34,6 @@ const FaleMaisForm = (props: IProps) => {
 
   const handleChange = (event: any) => {
     let evento = event.target;
-    console.log(evento);
     if (evento.name === "tempo") {
       if (evento.value[0] === "0") {
         evento.value = evento.value.slice(1);
@@ -57,6 +56,7 @@ const FaleMaisForm = (props: IProps) => {
           id="origem"
           name="origem"
           label="Origem"
+          dataTestId="origemSelect"
           value={formData.origem}
           handleChange={handleChange}
           listData={listDDD.map((ddd) => {
@@ -71,6 +71,7 @@ const FaleMaisForm = (props: IProps) => {
           label="Destino"
           value={formData.destino}
           handleChange={handleChange}
+          dataTestId="destinoSelect"
           listData={listDDD.map((ddd) => {
             return { value: ddd.codigo, descricao: ddd.descricao };
           })}
@@ -83,6 +84,9 @@ const FaleMaisForm = (props: IProps) => {
           name="tempo"
           label="Tempo"
           type="number"
+          inputProps={{
+            "data-testid": "tempoTextField",
+          }}
           value={formData.tempo}
           placeholder="Tempo em Minutos"
           onChange={(e) => handleChange(e)}
@@ -94,6 +98,7 @@ const FaleMaisForm = (props: IProps) => {
           id="plano"
           name="plano"
           label="Plano"
+          dataTestId="planoSelect"
           value={formData.plano}
           handleChange={handleChange}
           listData={planos.map((plano) => {
@@ -107,6 +112,7 @@ const FaleMaisForm = (props: IProps) => {
           color="primary"
           id="limparCampos"
           name="limparCampos"
+          data-testid="btnLimpar"
           onClick={() => handleClear()}
         >
           Limpar Campos

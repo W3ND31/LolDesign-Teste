@@ -39,7 +39,7 @@ function App() {
         <AppHeader label="Fale Mais">
           <Container>
             <FaleMaisForm handleSubmit={handleSubmit}></FaleMaisForm>
-            {show && <Results data={formData} />}
+            <Results data={formData} show={show} />
           </Container>
         </AppHeader>
       </ThemeProvider>

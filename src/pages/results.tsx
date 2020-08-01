@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TextField, Grid, InputAdornment } from "@material-ui/core";
+import { TextField, Grid, InputAdornment, makeStyles } from "@material-ui/core";
 import { useStyles } from "../style/defaultTheme";
 import DadosForm from "../model/dadosForm";
 import Planos from "../model/planos";
@@ -10,6 +10,7 @@ import { formatNumber } from "../util/utils";
 
 interface IProps {
   data: DadosForm;
+  show: boolean;
 }
 
 const INITIAL_RESULTADOS: Resultados = {
@@ -20,7 +21,13 @@ const INITIAL_RESULTADOS: Resultados = {
 const Results = (props: IProps) => {
   const classes = useStyles();
   const [resultados, setResultados] = useState<Resultados>(INITIAL_RESULTADOS);
-  const { data } = props;
+  const { data, show } = props;
+
+  const classes2 = makeStyles((theme) => ({
+    campoTexto: {
+      display: show ? "" : "none",
+    },
+  }))();
 
   useEffect(() => {
     calcularValores(data);
@@ -60,7 +67,11 @@ const Results = (props: IProps) => {
   };
 
   return (
-    <Grid container spacing={2} className={classes.container}>
+    <Grid
+      container
+      spacing={2}
+      className={`${classes.container} ${classes2.campoTexto}`}
+    >
       <Grid item xs={12} sm={6}>
         <TextField
           fullWidth
@@ -68,6 +79,9 @@ const Results = (props: IProps) => {
           id="comFaleMais"
           label="Com FaleMais"
           value={resultados.comFaleMais}
+          inputProps={{
+            "data-testid": "comFaleMaisTextField",
+          }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">R$</InputAdornment>
@@ -83,6 +97,9 @@ const Results = (props: IProps) => {
           id="semFaleMais"
           label="Sem FaleMais"
           value={resultados.semFaleMais}
+          inputProps={{
+            "data-testid": "semFaleMaisTextField",
+          }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">R$</InputAdornment>
