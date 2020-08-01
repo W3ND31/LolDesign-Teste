@@ -30,6 +30,7 @@ const ComboBox = (props: IProps) => {
         onChange={(e) => handleChange(e)}
         autoWidth
       >
+        <MenuItem value={0}>Selecione</MenuItem>
         {listData.map((item: any, index: number) => {
           return (
             <MenuItem key={index.toString()} value={item.value}>

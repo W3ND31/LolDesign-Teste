@@ -16,6 +16,13 @@ export const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
   },
+  button: {
+    margin: "auto",
+    textAlign: "center",
+  },
+  textField: {
+    margin: "auto",
+  },
   container: {},
 }));
 

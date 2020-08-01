@@ -1,30 +1,58 @@
-import React, { useState } from "react";
-import { Grid} from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { Grid, Button, TextField } from "@material-ui/core";
 import { listDDD, planos } from "../util/consts";
 import ComboBox from "../components/comboBox";
+import { useStyles } from "../style/defaultTheme";
+import DadosForm from "../model/dadosForm";
 
-const INITIAL_FORM_DATA = {
-  origem: "",
-  destino: "",
-  plano: "",
+interface IProps {
+  handleSubmit: any;
+}
+
+const INITIAL_STATE: DadosForm = {
+  origem: 0,
+  destino: 0,
+  tempo: 0,
+  plano: 0,
 };
 
-const FaleMaisForm = (props: any) => {
-  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
+const FaleMaisForm = (props: IProps) => {
+  const [formData, setFormData] = useState<DadosForm>(INITIAL_STATE);
+  const classes = useStyles();
+  const { handleSubmit } = props;
+
+  useEffect(() => {
+    if (
+      formData.origem !== 0 &&
+      formData.destino !== 0 &&
+      formData.tempo !== 0 &&
+      formData.plano !== 0
+    ) {
+      handleSubmit(formData);
+    }
+  }, [formData, handleSubmit]);
 
   const handleChange = (event: any) => {
-    console.log(event.target);
+    let evento = event.target;
+    console.log(evento);
+    if (evento.name === "tempo") {
+      if (evento.value[0] === "0") {
+        evento.value = evento.value.slice(1);
+      }
+    }
     setFormData((e) => {
-      return { ...e, [event.target.name]: event.target.value };
+      return { ...e, [evento.name]: Number(evento.value) };
     });
   };
 
-  //TODO: Implementar o botão de submit do formulário
-
+  const handleClear = () => {
+    setFormData(INITIAL_STATE);
+    handleSubmit(INITIAL_STATE);
+  };
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={3}>
         <ComboBox
           id="origem"
           name="origem"
@@ -36,7 +64,7 @@ const FaleMaisForm = (props: any) => {
           })}
         />
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={3}>
         <ComboBox
           id="destino"
           name="destino"
@@ -48,7 +76,20 @@ const FaleMaisForm = (props: any) => {
           })}
         />
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={3} className={classes.textField}>
+        <TextField
+          className={classes.formControl}
+          id="tempo"
+          name="tempo"
+          label="Tempo"
+          type="number"
+          value={formData.tempo}
+          placeholder="Tempo em Minutos"
+          onChange={(e) => handleChange(e)}
+          fullWidth
+        />
+      </Grid>
+      <Grid item xs={12} sm={3}>
         <ComboBox
           id="plano"
           name="plano"
@@ -59,6 +100,17 @@ const FaleMaisForm = (props: any) => {
             return { value: plano.id, descricao: plano.descricao };
           })}
         />
+      </Grid>
+      <Grid item xs={12} sm={12} className={classes.button}>
+        <Button
+          variant="contained"
+          color="primary"
+          id="limparCampos"
+          name="limparCampos"
+          onClick={() => handleClear()}
+        >
+          Limpar Campos
+        </Button>
       </Grid>
     </Grid>
   );
